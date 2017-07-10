@@ -28,7 +28,7 @@ $("#search-button").click(function(event){
 $(".gif-buttons").on("click", function() {
       $("#gifs-appear-here").empty();
       var person = $(this).attr("data-person");
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         person + "&api_key=dc6zaTOxFJmzC&limit=10";
 
       $.ajax({
