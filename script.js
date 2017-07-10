@@ -1,16 +1,17 @@
 var buttonData = ['Arnold Schwarzenegger', 'Chuck Norris', 'Will Ferrell',
               'The Rock'];
 
-
 function populateButtons(){
   for (var k = 0; k < buttonData.length; k++){
     var gifBtn = $("<button class='gif-buttons'>");
     $(gifBtn).attr("data-person",buttonData[k]);
     $(gifBtn).text(buttonData[k]);
     $("#buttons").append(gifBtn);
-  }
-};
+    console.log(gifBtn.attr("data-person"));
 
+  }
+
+};
 
   populateButtons();
 
@@ -18,14 +19,14 @@ function populateButtons(){
 $("#search-button").click(function(event){
           $("#gifs-appear-here").empty();
           event.preventDefault();
-          //buttonData.push($(".form-control").val());
-          var gifBtn = $("<button class='gif-buttons'>");
-          $(gifBtn).attr("data-person",$(".form-control").val());
-          $(gifBtn).text($(".form-control").val());
-          $("#buttons").append(gifBtn);
+          buttonData.push($(".form-control").val());
+          $("#buttons").empty();
+          populateButtons();
     });
 
-$(".gif-buttons").on("click", function() {
+
+$(document).on("click", ".gif-buttons", function() {
+
       $("#gifs-appear-here").empty();
       var person = $(this).attr("data-person");
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -46,8 +47,7 @@ $(".gif-buttons").on("click", function() {
             var p = $("<p>").text("Rating: " + rating.toUpperCase());
 
             var personImage = $("<img>");
-            personImage.addClass("gif");
-            
+            personImage.attr("id","gif- " + (i + 1));
             //Set state to still
             var state = personImage.attr("data-state", "still");
             //Declare the still and animated images and assign them to respective attributes
@@ -60,28 +60,20 @@ $(".gif-buttons").on("click", function() {
           $("#gifs-appear-here").prepend(gifDiv);
           };
 
-
-
-    
-
-$('body').on('click','img',function(event){
-              console.log("clicked");
-                if (personImage.attr("data-state") === "still") {
-                    personImage.removeAttr("src");
-                    personImage.attr("src", personImage.attr("data-animate"));
-                    personImage.attr("data-state", "animate");
-                } else {
-                    personImage.attr("src", personImage.attr("data-still"));
-                    personImage.attr("data-state", "still");
-                };
-            });
-
     });
 
 
 });
 
-
+$('body').on('click','img', function(event){
+                if ($(this).attr("data-state") === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                };
+            });
 
 
 
