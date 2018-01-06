@@ -1,4 +1,4 @@
-## Welcome to gifTastic!
+## Welcome to GifMe!
 
 This is a simple webpage that calls the Giphy API and returns a few gifs based on your search criteria. Exciting, right?
 
